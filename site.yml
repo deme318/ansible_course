@@ -23,6 +23,20 @@
       state: latest
     when: ansible_distribution == "Kali"
 
+  - name:  Copie d'une page web
+    ansible.builtin.copy:
+      src: /home/mhd/ansible_course/files/default_file.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 777
+
+  - name: Verifier que apache est running
+    ansible.builtin.service:
+      name: apache2
+      state: started
+    when: ansible_distribution == "Kali"
+
 
 - hosts: db_servers
   tags: db

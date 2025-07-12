@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Mise à jour des serveurs
+    ansible.builtin.apt:
+      update_cache: yes
+    when: ansible_distribution == "Kali"
+
+
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: Installation de apache2 et net-tools
+    ansible.builtin.apt:
+      name:
+        - apache2
+        - net-tools
+      state: latest
+    when: ansible_distribution == "Kali"
+
+
+- hosts: db_servers
+  become: true
+  tasks:
+
+  - name: Installation de compo
+    ansible.builtin.apt:
+      name:
+        - apache2
+        - net-tools
+      state: latest
+    when: ansible_distribution == "Kali"

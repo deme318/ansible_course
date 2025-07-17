@@ -10,7 +10,14 @@
     when: ansible_distribution == "Kali"
 
 
-- hosts: web_servers
+  - name: Modification de fichier de conf
+    ansible.builtin.lineinfile:
+      path: /etc/apache2/apache2.conf
+      regexp: '^Timeout 400'
+      line: Timeout 500
+
+
+- hosts: all
   tags: web
   become: true
   tasks:

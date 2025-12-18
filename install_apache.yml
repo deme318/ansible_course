@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Mise à jour du serveur
+    ansible.builtin.apt:
+      update_cache: yes
+
+  - name: Installation de vim nox
+    ansible.builtin.apt:
+      name: vim-nox
+      state: latest

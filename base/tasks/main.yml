@@ -1,0 +1,17 @@
+- name: Creation de l'utilisateur bolt
+  ansible.builtin.user:
+    name: bolt
+    groups: root
+
+- name: Copy du fichier bolt
+  ansible.builtin.copy:
+    src: bolt.txt
+    dest: /home/vagrant/bolt
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Mise à jour des serveurs
+  ansible.builtin.apt:
+    update_cache: yes
+    upgrade: dist

@@ -1,0 +1,4 @@
+- name: Installation de mariadb
+  ansible.builtin.apt:
+    name: mariadb-server
+    state: latest

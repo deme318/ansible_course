@@ -9,14 +9,44 @@
       upgrade: dist
     when: ansible_distribution == "Ubuntu"
 
+  - name: Copy d'un fichier
+    ansible.builtin.copy:
+      src: test.txt
+      dest: /home/vagrant
+      owner: root
+      group: root
+      mode: 0644
+
 
 - hosts: web_servers
   become: true
   tasks:
 
   - name: Installation de apache
+    tags: apache
     ansible.builtin.apt:
       name:
         - apache2
       state: latest
     when: ansible_distribution == "Ubuntu"
+
+  - name: Verification démarrage de apache2
+    ansible.builtin.service:
+      name: apache2
+      state: started
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Modification du fichier momo.txt
+    tags: momo
+    ansible.builtin.lineinfile:
+      path: /home/vagrant/momo.txt
+      regexp: '^Babacar'
+      line: Mouhamed
+    when: ansible_distribution == "Ubuntu"
+    register: apache2
+
+  - name: redémarrage de apache
+    ansible.builtin.service:
+      name: apache2
+      state: restarted
+    when: apache2.changed

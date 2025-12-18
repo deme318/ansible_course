@@ -1,9 +1,17 @@
 - name: Installation de Apache2
-  ansible.builtin.apt:
-    name: apache2
-    state: latest
+  ansible.builtin.package:
+    name:
+      - "{{ apache_package}}"
 
-- name: Verifier si Apache est running
+- name: Verifier si Apache2 est running
   ansible.builtin.service:
-    name: apache2
+    name: "{{ apache_service }}"
     state: started
+
+- name: modification du fichier momo.txt
+  ansible.builtin.lineinfile:
+    path: /home/vagrant/bolt/bolt.txt
+    regexp: '^Babacar'
+    line: Babacar le goat
+  notify: restart_apache
+

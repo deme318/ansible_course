@@ -50,3 +50,8 @@
       name: apache2
       state: restarted
     when: apache2.changed
+
+  - name: creation du user Simone
+    ansible.builtin.user:
+      name: Simone
+      groups: root

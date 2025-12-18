@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Mise à jour des serveurs
+    ansible.builtin.apt:
+      update_cache: yes
+      upgrade: dist
+    when: ansible_distribution == "Ubuntu"
+
+
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: Installation de apache
+    ansible.builtin.apt:
+      name:
+        - apache2
+      state: latest
+    when: ansible_distribution == "Ubuntu"

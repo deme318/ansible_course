@@ -1,2 +1,5 @@
-192.168.56.101 ansible_user=vagrant
-#192.168.56.102 ansible_user=vagrant
+[web_servers]
+192.168.56.101
+
+[database_servers] 
+192.168.56.102
